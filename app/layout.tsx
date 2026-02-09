@@ -8,25 +8,26 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "DeskPro Technology - Your Trusted IT Partner",
+  description:
+    "DeskPro Technology is a leading IT solutions provider based in Nepal, offering a wide range of services including software development, IT consulting, and digital transformation. We are committed to delivering innovative and reliable technology solutions that drive business success. With a team of experienced professionals and a customer-centric approach, DeskPro Technology helps businesses of all sizes leverage the power of technology to achieve their goals. Contact us today to learn how we can help your business thrive in the digital age.",
+  generator: "Next.js",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/deskpro-logo.png",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/deskpro-logo.png",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/deskpro-logo.png",
+        type: "image/png",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/deskpro-logo.png",
   },
 };
 
