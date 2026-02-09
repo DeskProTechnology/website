@@ -15,8 +15,14 @@ export function SiteHeader() {
         <div className="flex h-20 items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="bg-primary text-primary-foreground p-2 rounded-xl group-hover:scale-105 transition-transform">
-                <span className="font-bold text-xl tracking-tight">DT</span>
+              <div className="text-primary-foreground p-2 rounded-xl group-hover:scale-105 transition-transform">
+                {/* <DeskproLogo className="h-8 w-8" /> */}
+                <img
+                  src={"/deskpro-logo.png"}
+                  alt="DeskPro Technology"
+                  className="h-8 w-8"
+                />
+                {/* <span className="font-bold text-xl tracking-tight">DT</span> */}
               </div>
               <span className="font-bold text-xl hidden sm:inline-block tracking-tight">
                 DeskPro Technology

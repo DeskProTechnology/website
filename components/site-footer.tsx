@@ -8,8 +8,13 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <div className="bg-primary text-primary-foreground p-1.5 rounded-md">
-                <span className="font-bold text-lg tracking-tight">DT</span>
+              <div className="text-primary-foreground p-1.5 rounded-md">
+                {/* <span className="font-bold text-lg tracking-tight">DT</span> */}
+                <img
+                  src={"/deskpro-logo.png"}
+                  alt="DeskPro Technology"
+                  className="h-8 w-8"
+                />
               </div>
               <span className="font-bold text-xl">DeskPro Technology</span>
             </div>
@@ -68,7 +73,7 @@ export function SiteFooter() {
                       {item}
                     </Link>
                   </li>
-                )
+                ),
               )}
             </ul>
           </div>
