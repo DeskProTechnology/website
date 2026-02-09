@@ -1,18 +1,121 @@
-import { Mail, MapPin, Phone, Send } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+"use client";
+
+import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { toast } from "sonner";
+
+type FormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  message: string;
+};
+
+type FormErrors = Partial<FormState>;
 
 export function ContactSection() {
+  const [form, setForm] = useState<FormState>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [loading, setLoading] = useState(false);
+
+  /* ------------------ validation ------------------ */
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!form.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    }
+
+    if (!form.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    }
+
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (form.message.length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /* ------------------ handlers ------------------ */
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: undefined });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      toast.error("Validation error", {
+        description: "Please fix the highlighted fields.",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error();
+
+      toast.success("Message sent 🎉", {
+        description: "Thanks for reaching out. We’ll contact you soon.",
+      });
+
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        message: "",
+      });
+    } catch {
+      toast.error("Failed to send message", {
+        description: "Please try again later.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* LEFT INFO */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get in Touch</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Get in Touch
+              </h2>
               <p className="text-muted-foreground text-lg max-w-md">
-                Ready to transform your business? We reach every corner of our country to provide top-notch technology solutions.
+                Ready to transform your business? We reach every corner of our
+                country to provide top-notch technology solutions.
               </p>
             </div>
 
@@ -23,8 +126,12 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Our Locations</h3>
-                  <p className="text-muted-foreground">Head Office: Biratnagar-05, Bargachhi</p>
-                  <p className="text-muted-foreground">Ops Office: Itahari-17, Pakali</p>
+                  <p className="text-muted-foreground">
+                    Head Office: Biratnagar-05, Bargachhi
+                  </p>
+                  <p className="text-muted-foreground">
+                    Ops Office: Itahari-17, Pakali
+                  </p>
                 </div>
               </div>
 
@@ -35,7 +142,9 @@ export function ContactSection() {
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Phone</h3>
                   <p className="text-muted-foreground">9802756534</p>
-                  <p className="text-muted-foreground">9842419776, 9820751573 (CEO)</p>
+                  <p className="text-muted-foreground">
+                    9842419776, 9820751573 (CEO)
+                  </p>
                 </div>
               </div>
 
@@ -45,40 +154,91 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Email</h3>
-                  <p className="text-muted-foreground">info@deskprotechnology.com.np</p>
-                  <p className="text-muted-foreground">deskprotechnology@gmail.com</p>
+                  <p className="text-muted-foreground">
+                    info@deskprotechnology.com.np
+                  </p>
+                  <p className="text-muted-foreground">
+                    deskprotechnology@gmail.com
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* RIGHT FORM */}
           <div className="rounded-3xl border bg-card/50 backdrop-blur-sm p-8 md:p-10 shadow-2xl">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="first-name" className="text-sm font-medium">First name</label>
-                  <Input id="first-name" placeholder="John" className="bg-background/50 border-border/50 focus:border-primary h-12" />
+                  <label className="text-sm font-medium">First name</label>
+                  <Input
+                    name="firstName"
+                    value={form.firstName}
+                    onChange={handleChange}
+                    placeholder="Saurav"
+                    className="h-12"
+                  />
+                  {errors.firstName && (
+                    <p className="text-sm text-red-500">{errors.firstName}</p>
+                  )}
                 </div>
+
                 <div className="space-y-2">
-                  <label htmlFor="last-name" className="text-sm font-medium">Last name</label>
-                  <Input id="last-name" placeholder="Doe" className="bg-background/50 border-border/50 focus:border-primary h-12" />
+                  <label className="text-sm font-medium">Last name</label>
+                  <Input
+                    name="lastName"
+                    value={form.lastName}
+                    onChange={handleChange}
+                    placeholder="Prasad"
+                    className="h-12"
+                  />
+                  {errors.lastName && (
+                    <p className="text-sm text-red-500">{errors.lastName}</p>
+                  )}
                 </div>
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">Email</label>
-                <Input id="email" placeholder="m@example.com" type="email" className="bg-background/50 border-border/50 focus:border-primary h-12" />
+                <label className="text-sm font-medium">Email</label>
+                <Input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="example@example.com"
+                  className="h-12"
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email}</p>
+                )}
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium">Message</label>
-                <Textarea className="min-h-[150px] bg-background/50 border-border/50 focus:border-primary resize-none" id="message" placeholder="How can we help you?" />
+                <label className="text-sm font-medium">Message</label>
+                <Textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="How can we help you?"
+                  className="min-h-[150px] resize-none"
+                />
+                {errors.message && (
+                  <p className="text-sm text-red-500">{errors.message}</p>
+                )}
               </div>
-              <Button className="w-full h-12 text-base rounded-xl" type="submit">
-                Send Message <Send className="ml-2 h-4 w-4" />
+
+              <Button
+                className="w-full h-12 text-base rounded-xl cursor-pointer"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Send Message"}
+                <Send className="ml-2 h-4 w-4" />
               </Button>
             </form>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

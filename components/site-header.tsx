@@ -71,8 +71,12 @@ export function SiteHeader() {
                     href="/"
                     className="font-bold text-2xl flex items-center gap-2"
                   >
-                    <div className="bg-primary text-primary-foreground p-1.5 rounded-md">
-                      DT
+                    <div className="text-primary-foreground p-1.5 rounded-md">
+                      <img
+                        src={"/deskpro-logo.png"}
+                        alt="DeskPro Technology"
+                        className="h-8 w-8"
+                      />
                     </div>
                     DeskPro
                   </Link>
