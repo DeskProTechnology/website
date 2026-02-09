@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "sonner";
+import Link from "next/link";
 
 type FormState = {
   firstName: string;
@@ -124,14 +125,22 @@ export function ContactSection() {
                 <div className="p-4 rounded-2xl bg-primary/10 text-primary mt-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <MapPin className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="flex flex-col items-start">
                   <h3 className="font-semibold text-lg mb-1">Our Locations</h3>
-                  <p className="text-muted-foreground">
+                  <Link
+                    href="https://www.google.com/maps/place/Biratnagar-05,+Bargachhi/@27.243189,87.106433,17z/data=!3m1!4b1!4m6!3m5!1s0x39eb0c8c2f0c8c2f:0x8c8c8c8c8c8c8c8c!8m2!3d27.243189!4d87.106433!16s%2Fg%2F11c4z8z5_?entry=ttu"
+                    target="_blank"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
                     Head Office: Biratnagar-05, Bargachhi
-                  </p>
-                  <p className="text-muted-foreground">
+                  </Link>
+                  <Link
+                    href="https://www.google.com/maps/place/Itahari-17,+Pakali/@27.243189,87.106433,17z/data=!3m1!4b1!4m6!3m5!1s0x39eb0c8c2f0c8c2f:0x8c8c8c8c8c8c8c8c!8m2!3d27.243189!4d87.106433!16s%2Fg%2F11c4z8z5_?entry=ttu"
+                    target="_blank"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
                     Ops Office: Itahari-17, Pakali
-                  </p>
+                  </Link>
                 </div>
               </div>
 
@@ -139,12 +148,26 @@ export function ContactSection() {
                 <div className="p-4 rounded-2xl bg-primary/10 text-primary mt-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <Phone className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="flex flex-col items-start">
                   <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                  <p className="text-muted-foreground">9802756534</p>
-                  <p className="text-muted-foreground">
-                    9842419776, 9820751573 (CEO)
-                  </p>
+                  <Link
+                    href="tel:9802756534"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
+                    9802756534 (Support)
+                  </Link>
+                  <Link
+                    href="tel:9842419776"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
+                    9842419776 (Sales)
+                  </Link>
+                  <Link
+                    href="tel:9820751573"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
+                    9820751573 (CEO)
+                  </Link>
                 </div>
               </div>
 
@@ -152,14 +175,20 @@ export function ContactSection() {
                 <div className="p-4 rounded-2xl bg-primary/10 text-primary mt-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <Mail className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="flex flex-col items-start">
                   <h3 className="font-semibold text-lg mb-1">Email</h3>
-                  <p className="text-muted-foreground">
+                  <Link
+                    href="mailto:info@deskprotechnology.com.np"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
                     info@deskprotechnology.com.np
-                  </p>
-                  <p className="text-muted-foreground">
+                  </Link>
+                  <Link
+                    href="mailto:deskprotechnology@gmail.com"
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                  >
                     deskprotechnology@gmail.com
-                  </p>
+                  </Link>
                 </div>
               </div>
             </div>

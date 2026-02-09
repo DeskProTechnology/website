@@ -1,6 +1,66 @@
 import Link from "next/link";
 import { Facebook, Linkedin, Twitter, ArrowRight } from "lucide-react";
 
+const companyItems = [
+  {
+    name: "About Us",
+    href: "#about",
+  },
+  {
+    name: "Our Clients",
+    href: "#clients",
+  },
+  {
+    name: "Contact",
+    href: "#contact",
+  },
+  // {
+  //   name: "Privacy Policy",
+  //   href: "#",
+  // },
+];
+
+const servicesItems = [
+  {
+    name: "Software Development",
+    href: "#services",
+  },
+  {
+    name: "CCTV Surveillance",
+    href: "#services",
+  },
+  {
+    name: "Fire Safety",
+    href: "#services",
+  },
+  {
+    name: "Cloud Solutions",
+    href: "#services",
+  },
+  {
+    name: "Power Backup",
+    href: "#services",
+  },
+];
+
+const socialItems = [
+  {
+    name: "Facebook",
+    href: "#",
+    icon: Facebook,
+  },
+  {
+    name: "Twitter",
+    href: "#",
+    icon: Twitter,
+  },
+  {
+    name: "LinkedIn",
+    href: "#",
+    icon: Linkedin,
+  },
+];
+
 export function SiteFooter() {
   return (
     <footer className="bg-background border-t border-border/40 pt-16 pb-8">
@@ -23,13 +83,13 @@ export function SiteFooter() {
               solutions, and digital transformation in Nepal.
             </p>
             <div className="flex gap-4">
-              {[Facebook, Twitter, Linkedin].map((Icon, i) => (
+              {socialItems.map((item, i) => (
                 <Link
                   key={i}
-                  href="#"
+                  href={item.href}
                   className="h-10 w-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
-                  <Icon className="h-5 w-5" />
+                  <item.icon className="h-5 w-5" />
                   <span className="sr-only">Social Link</span>
                 </Link>
               ))}
@@ -39,20 +99,14 @@ export function SiteFooter() {
           <div>
             <h4 className="font-bold text-lg mb-6">Services</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              {[
-                "Software Development",
-                "CCTV Surveillance",
-                "Fire Safety",
-                "Cloud Solutions",
-                "Power Backup",
-              ].map((item) => (
-                <li key={item}>
+              {servicesItems.map((item) => (
+                <li key={item.name}>
                   <Link
-                    href="#"
+                    href={item.href}
                     className="hover:text-primary transition-colors flex items-center gap-2 group"
                   >
                     <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -62,19 +116,17 @@ export function SiteFooter() {
           <div>
             <h4 className="font-bold text-lg mb-6">Company</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              {["About Us", "Our Clients", "Contact", "Privacy Policy"].map(
-                (item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      className="hover:text-primary transition-colors flex items-center gap-2 group"
-                    >
-                      <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      {item}
-                    </Link>
-                  </li>
-                ),
-              )}
+              {companyItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -85,19 +137,43 @@ export function SiteFooter() {
                 <span className="font-medium text-foreground">
                   Head Office:
                 </span>
-                Biratnagar-05, Bargachhi
+                <Link
+                  // href="https://goo.gl/maps/1Zy7n2h5sH2iLh6C9"
+                  href=""
+                  target="_blank"
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Biratnagar-05, Bargachhi
+                </Link>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-medium text-foreground">Ops Office:</span>
-                Itahari-17, Pakali
+                <Link
+                  // href="https://goo.gl/maps/1Zy7n2h5sH2iLh6C9"
+                  href=""
+                  target="_blank"
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  Itahari-17, Pakali
+                </Link>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-medium text-foreground">Phone:</span>
-                +977 9802756534
+                <Link
+                  href="tel:+9779802756534"
+                  className="hover:text-primary transition-colors cursor-pointer"
+                >
+                  +977 9802756534
+                </Link>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-medium text-foreground">Email:</span>
-                info@deskprotechnology.com.np
+                <Link
+                  href="mailto:info@deskprotechnology.com.np"
+                  className=" hover:text-primary transition-colors cursor-pointer"
+                >
+                  info@deskprotechnology.com.np
+                </Link>
               </li>
             </ul>
           </div>

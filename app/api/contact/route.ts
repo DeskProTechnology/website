@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.NEXT_PUBLIC_RESENDJS_SECRET_KEY);
-// const resend = new Resend("re_aMKPYfTY_ENy2cuFQbxFKzcpk8TQfF6Bk");
+// const resend = new Resend(process.env.NEXT_PUBLIC_RESENDJS_SECRET_KEY);
+const resend = new Resend("re_aMKPYfTY_ENy2cuFQbxFKzcpk8TQfF6Bk");
 
 export async function POST(req: Request) {
   try {
