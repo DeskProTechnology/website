@@ -19,7 +19,7 @@ export default function Home() {
           <BrandsSection />
           <ServicesSection />
           <AboutSection />
-          <GallerySection />
+          {/* <GallerySection /> */}
           <ClientsSection />
           <ReviewsSection />
           <ContactSection />
